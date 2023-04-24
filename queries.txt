@@ -1,0 +1,13 @@
+mysql> create database resume;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> create table resume.regstatus(id bigint not null primary key auto_increment,regstate varchar(300),status varchar(300));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> insert into resume.regstatus(regstate,status) values ("0","0");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> create table resume.signup(id bigint not null primary key auto_increment,username varchar(300),password varchar(300),name varchar(300),fathername varchar(300),date_of_birth varchar(300),email varchar(300),phone varchar(300),status varchar(300));
+Query OK, 0 rows affected (0.22 sec)
+
+create table resume.profilephoto(id bigint not null primary key auto_increment,userid varchar(300),url varchar(300),filename varchar(300),alt_text varchar(300),status varchar(300));
