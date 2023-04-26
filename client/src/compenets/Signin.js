@@ -151,7 +151,7 @@ export default function Signin(){
         <Modal.Header>
     
           <Modal.Title className="text-center col-8">Forget Password</Modal.Title>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose}>
            <AiOutlineClose/>
           </Button>
         </Modal.Header>

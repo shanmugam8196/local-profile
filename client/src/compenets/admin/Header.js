@@ -81,7 +81,7 @@ export default function Header(){
                 <Modal show={show} onHide={handleShow}>
                       <Modal.Header>
                          <Modal.Title className="text-center col-8">Profile Details Edit</Modal.Title>
-                            <Button variant="secondary" onClick={handleClose}>
+                            <Button variant="danger" onClick={handleClose}>
                                 <AiOutlineClose/>
                              </Button>
                        </Modal.Header>
@@ -93,7 +93,7 @@ export default function Header(){
                  <Modal show={profile} onHide={profileShow}>
                       <Modal.Header>
                          <Modal.Title className="text-center col-8">Profile Photo Edit</Modal.Title>
-                            <Button variant="secondary" onClick={profileClose}>
+                            <Button variant="danger" onClick={profileClose}>
                                 <AiOutlineClose/>
                             </Button>
                        </Modal.Header>

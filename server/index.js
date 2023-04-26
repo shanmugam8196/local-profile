@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const mycon = require('mysql');
 const fileupload = require('express-fileupload');
+const Http=require('http');
+
 // var localStorage = require('localStorage')
 
 const app = express();
@@ -302,5 +304,155 @@ app.post('/profileupload',(request,response)=>{
 })
 
 
+// app.get('/ref/:id',(request,response)=>{
+//     let {id}=request.params;
+//     let sql=`select * from refer where refid=?`;
+
+//     c.query(sql,[id],(error,result)=>{
+//         if (error){
+//             console.log(error);
+//         }
+//         else {
+//            for(var i=0;i<result.length;i++){
+//             if(result[i].refid==null || result[i].refid==undefined){
+//                 console.log(result[i]);
+//             }
+//             else if(result[i].refid!=null){
+//             Http.get(`http://localhost:3000/det/${result[i].id}`);
+//             // console.log(result[i]);
+//             response.send(result[i]);
+//             }
+//            }
+//         }
+//     })
+// })
+
+app.get('/ref/:id',(request,response)=>{
+    let {id}=request.params;
+    let sql='select * from refer where refid=?';
+    c.query(sql,[id],(error,result)=>{
+        if (error){
+            console.log(error);
+        }
+        else {
+            let mypromise=result.map(row=>{
+                return new Promise((resolve,reject)=>{
+                    c.query(sql,[row.id],(error,result)=>{
+                        if(error){
+                            reject(error);
+                        }
+                        else{
+                            resolve(result);
+                            console.log(result);
+                        }
+                    })
+                })
+            })
+
+            Promise.all(mypromise)
+                            .then(result=>{
+                                let list2=[].concat(...result);
+                                return response.send(list2);
+                            })
+                          .catch(error => {
+                            return response.send(error);
+                          });
+
+        }
+    })
+})
+
+
+
+// app.get('/ref/:id',(request,response)=>{
+//     let {id}=request.params;
+//     let sql=`select * from refer where refid=?`;
+
+//     c.query(sql,[id],(error,result)=>{
+//         if (error){
+//             console.log(error);
+//         }
+//         else {
+//             let mypromise=result.map(row=>{
+//                 return new Promise((resolve,reject)=>{
+//                     c.query(sql,[row.id],(error,result)=>{
+//                         if(error){
+//                             reject(error);
+//                         }
+//                         else{
+//                             resolve(result);
+//                         }
+//                     });
+//                 });
+//             });
+//                 Promise.all(mypromise)
+//                 .then(result=>{
+//                     let list2=[].concat(...result);
+//                     return response.send(list2);
+//                 })
+//               .catch(error => {
+//                 return response.send(error);
+//               });
+          
+//         };
+//     });
+// });
+
+
+
+
+
+
+// app.get('/ref/:id',(request,response)=>{
+//     let {id}=request.params;
+//     let sql=`select * from refer where refid=?`;
+
+//     c.query(sql,[id],(error,result)=>{
+//         if (error){
+//             console.log(error);
+//         }
+//         else {
+//             for(var i=0;i<result.length;i++){   
+//             console.log(result[i].id);
+//             c.query(sql,[result[i].id],(error,result1)=>{
+//                 if(error){
+//                     console.log(error)
+//                 }
+//                 else {
+//                     console.log(result1)
+//                   result1.map((k,v)=>{
+//                     c.query(sql,[k.id],(error,result)=>{
+//                         if(error){
+//                             console.log(error)
+//                         }
+//                         else{
+//                             console.log(result);
+//                            console.log(result.id);
+//                         }
+//                     })
+
+//                    })
+//                 }
+//             })
+//             } 
+//         }
+//     })
+// })
+
+
 
 app.listen(3000, ()=>{console.log('Port number running in 3000')});
+
+
+// var refer=result[0].reffered_id;
+// while(refer!=null){
+//     c.query(sel1,[refer],(err,result)=>{
+//         if(err){
+//             response.send(err);
+//         }
+//         else{
+//             refer=result[0].id;
+//         }
+//     })
+// }
+
